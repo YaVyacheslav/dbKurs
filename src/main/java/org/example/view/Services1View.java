@@ -1,7 +1,5 @@
 package org.example.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
@@ -9,16 +7,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
-import org.example.SingletonResult;
-import org.example.model.Branch;
 import org.example.model.Service1;
 import org.example.model.Services1;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Date;
-import java.util.List;
 
-public class Service1View {
+public class Services1View {
     private final StackPane root;
     private final Canvas canvas;
     private final Services1 model;
@@ -27,7 +22,7 @@ public class Service1View {
     private DatePicker acceptanceDateField, returnDateField;
     private TableView<Service1> tableView;
 
-    public Service1View(Services1 model) {
+    public Services1View(Services1 model) {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);

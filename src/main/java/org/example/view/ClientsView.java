@@ -1,7 +1,5 @@
 package org.example.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
@@ -9,14 +7,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
-import org.example.SingletonResult;
 import org.example.model.Client;
 import org.example.model.Clients;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.List;
-
-public class ClientView {
+public class ClientsView {
     private final StackPane root;
     private final Canvas canvas;
     private final Clients model;
@@ -24,7 +19,7 @@ public class ClientView {
     private TextField surnameField, nameField, patronymicField, phoneField, usernameField, passwordField, roleField;
     private TableView<Client> tableView;
 
-    public ClientView(Clients model) {
+    public ClientsView(Clients model) {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);

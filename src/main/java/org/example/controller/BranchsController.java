@@ -1,16 +1,16 @@
 package org.example.controller;
 
 import org.example.model.Branchs;
-import org.example.view.BranchView;
+import org.example.view.BranchsView;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 
-public class BranchController implements Observer {
+public class BranchsController implements Observer {
     private final Branchs model;
-    private final BranchView view;
+    private final BranchsView view;
 
-    public BranchController(Branchs model, BranchView view) {
+    public BranchsController(Branchs model, BranchsView view) {
         this.model = model;
         this.view = view;
         initializeButtons();

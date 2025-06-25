@@ -2,7 +2,7 @@ package org.example.controller;
 
 import org.example.model.ServiceType;
 import org.example.model.ServiceTypes;
-import org.example.view.ServiceTypeView;
+import org.example.view.ServicesTypesView;
 
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
@@ -10,11 +10,11 @@ import javafx.event.EventHandler;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ServiceTypeController implements Observer {
+public class ServicesTypesController implements Observer {
     private final ServiceTypes model;
-    private final ServiceTypeView view;
+    private final ServicesTypesView view;
 
-    public ServiceTypeController(ServiceTypes model, ServiceTypeView view) {
+    public ServicesTypesController(ServiceTypes model, ServicesTypesView view) {
         this.model = model;
         this.view = view;
 

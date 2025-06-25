@@ -11,7 +11,7 @@ import org.example.model.ServiceType;
 import org.example.model.ServiceTypes;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ServiceTypeView {
+public class ServicesTypesView {
     private final StackPane root;
     private final Canvas canvas;
     private final ServiceTypes model;
@@ -19,7 +19,7 @@ public class ServiceTypeView {
     private TextField nameField, typeField;
     private TableView<ServiceType> tableView;
 
-    public ServiceTypeView(ServiceTypes model) {
+    public ServicesTypesView(ServiceTypes model) {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);

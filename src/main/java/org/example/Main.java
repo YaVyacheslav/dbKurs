@@ -1,29 +1,47 @@
 package org.example;
-import java.sql.*;
 
-public class Main {
-    public static void main(String[] args){
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.example.controller.*;
+import org.example.model.*;
+import org.example.view.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+
+public class Main extends Application {
+    private static Connection connection;
+
+    public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_2740_bd", "std_2740_bd", "qwerty12345@");
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM posts";
-            ResultSet result = statement.executeQuery(query);
-            while(result.next()){
-                int id = result.getInt("id");
-                String name = result.getString("name");
-                String short_name = result.getString("short_name");
-                System.out.print("Vacant post: ");
-                System.out.print("id = " + id);
-                System.out.print(", name = \"" + name + "\"");
-                System.out.println(", short name = \"" +
-                        short_name + "\".");
-            }
-            connection.close();
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/kurs",
+                    "root", ""
+            );
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
         }
-        catch(Exception e){
-            System.out.println(e);
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Login loginModel = new Login();
+        LoginView loginView = new LoginView(loginModel);
+        loginModel.setPrimaryStage(primaryStage);
+        loginModel.setConnection(connection);
+        new LoginController(loginModel, loginView);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
         }
     }
 }
+

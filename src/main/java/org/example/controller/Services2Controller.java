@@ -1,21 +1,20 @@
 package org.example.controller;
 
-import org.example.model.Service1;
-import org.example.model.Services1;
-import org.example.view.Service1View;
+import org.example.model.Service2;
+import org.example.model.Services2;
+import org.example.view.Services2View;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Service1Controller implements Observer {
-    private final Services1 model;
-    private final Service1View view;
+public class Services2Controller implements Observer {
+    private final Services2 model;
+    private final Services2View view;
 
-    public Service1Controller(Services1 model, Service1View view) {
+    public Services2Controller(Services2 model, Services2View view) {
         this.model = model;
         this.view = view;
 
@@ -57,20 +56,12 @@ public class Service1Controller implements Observer {
     }
 
     private void addService() {
-        int clientId = Integer.parseInt(view.getClientIdField().getText());
-        int serviceTypeId = Integer.parseInt(view.getServiceTypeIdField().getText());
-        int branchId = Integer.parseInt(view.getBranchIdField().getText());
-        int requestNumber = Integer.parseInt(view.getRequestNumberField().getText());
-        Date acceptanceDate = Date.valueOf(view.getAcceptanceDateField().getValue());
-        Date returnDate = Date.valueOf(view.getReturnDateField().getValue());
-
-
-        Integer complexity = parseInteger(view.getComplexityField().getText());
-        Double workload = parseDouble(view.getWorkloadField().getText());
-        Integer urgency = parseInteger(view.getUrgencyField().getText());
+        int serviceId = Integer.parseInt(view.getServiceIdField().getText());
+        Integer price = parseInteger(view.getPriceField().getText());
+        int discount = Integer.parseInt(view.getDiscountField().getText());
 
         try {
-            model.addService(clientId, serviceTypeId, branchId, requestNumber, acceptanceDate, returnDate, complexity, workload, urgency);
+            model.addService(serviceId, price, discount);
             view.clearFields();
         } catch (SQLException e) {
             view.showError("Ошибка при добавлении услуги: " + e.getMessage());
@@ -78,22 +69,14 @@ public class Service1Controller implements Observer {
     }
 
     private void updateService() {
-        Service1 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
+        Service2 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
         if (selectedService != null) {
-            int clientId = Integer.parseInt(view.getClientIdField().getText());
-            int serviceTypeId = Integer.parseInt(view.getServiceTypeIdField().getText());
-            int branchId = Integer.parseInt(view.getBranchIdField().getText());
-            int requestNumber = Integer.parseInt(view.getRequestNumberField().getText());
-            Date acceptanceDate = Date.valueOf(view.getAcceptanceDateField().getValue());
-            Date returnDate = Date.valueOf(view.getReturnDateField().getValue());
-
-
-            Integer complexity = parseInteger(view.getComplexityField().getText());
-            Double workload = parseDouble(view.getWorkloadField().getText());
-            Integer urgency = parseInteger(view.getUrgencyField().getText());
+            int serviceId = Integer.parseInt(view.getServiceIdField().getText());
+            Integer price = parseInteger(view.getPriceField().getText());
+            int discount = Integer.parseInt(view.getDiscountField().getText());
 
             try {
-                model.updateService(selectedService.getServiceId(), clientId, serviceTypeId, branchId, requestNumber, acceptanceDate, returnDate, complexity, workload, urgency);
+                model.updateService(selectedService.getServiceId(), price, discount);
                 view.clearFields();
             } catch (SQLException e) {
                 view.showError("Ошибка при обновлении услуги: " + e.getMessage());
@@ -104,7 +87,7 @@ public class Service1Controller implements Observer {
     }
 
     private void deleteService() {
-        Service1 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
+        Service2 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
         if (selectedService != null) {
             try {
                 model.removeService(selectedService.getServiceId());
@@ -122,13 +105,5 @@ public class Service1Controller implements Observer {
             return null;
         }
         return Integer.parseInt(text);
-    }
-
-
-    private Double parseDouble(String text) {
-        if (text == null || text.trim().isEmpty()) {
-            return null;
-        }
-        return Double.parseDouble(text);
     }
 }

@@ -16,11 +16,11 @@ public class TableNavigationPane extends BorderPane {
 
     private final StackPane content = new StackPane();
 
-    public TableNavigationPane(BranchView branchView,
-                               ClientView clientView,
-                               Service1View svc1View,
-                               Service2View svc2View,
-                               ServiceTypeView serviceTypeView) {
+    public TableNavigationPane(BranchsView branchView,
+                               ClientsView clientView,
+                               Services1View svc1View,
+                               Services2View svc2View,
+                               ServicesTypesView serviceTypeView) {
 
         HBox toolbar = new HBox(10, btnBranches, btnClients, btnServices1, btnServices2, btnServiceTypes);
         toolbar.setPadding(new Insets(10));

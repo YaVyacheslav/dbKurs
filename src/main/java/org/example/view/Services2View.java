@@ -1,7 +1,5 @@
 package org.example.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
@@ -9,15 +7,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
-import org.example.SingletonResult;
-import org.example.model.Branch;
 import org.example.model.Service2;
 import org.example.model.Services2;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.List;
-
-public class Service2View {
+public class Services2View {
     private final StackPane root;
     private final Canvas canvas;
     private final Services2 model;
@@ -25,7 +19,7 @@ public class Service2View {
     private TextField serviceIdField, priceField, discountField;
     private TableView<Service2> tableView;
 
-    public Service2View(Services2 model) {
+    public Services2View(Services2 model) {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);

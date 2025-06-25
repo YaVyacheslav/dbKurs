@@ -6,15 +6,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.SingletonResult;
 import org.example.model.Branch;
 import org.example.model.Branchs;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-import java.util.List;
-
-public class BranchView {
+public class BranchsView {
     private final StackPane root;
     private final TableView<Branch> tableView;
     private final TextField addressField;
@@ -22,7 +17,7 @@ public class BranchView {
 
     private final Branchs model;
 
-    public BranchView(Branchs model) {
+    public BranchsView(Branchs model) {
         this.model = model;
         this.root = new StackPane();
         this.addressField = new TextField();

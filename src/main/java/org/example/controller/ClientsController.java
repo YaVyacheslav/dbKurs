@@ -2,7 +2,7 @@ package org.example.controller;
 
 import org.example.model.Client;
 import org.example.model.Clients;
-import org.example.view.ClientView;
+import org.example.view.ClientsView;
 
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
@@ -10,11 +10,11 @@ import javafx.event.EventHandler;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ClientController implements Observer {
+public class ClientsController implements Observer {
     private final Clients model;
-    private final ClientView view;
+    private final ClientsView view;
 
-    public ClientController(Clients model, ClientView view) {
+    public ClientsController(Clients model, ClientsView view) {
         this.model = model;
         this.view = view;
 

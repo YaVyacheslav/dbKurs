@@ -102,17 +102,17 @@ public class Login extends Observable {
         ServiceTypes mServiceTypes = new ServiceTypes();
         mServiceTypes.load(connection);
 
-        BranchView vBranches = new BranchView(mBranches);
-        ClientView vClients = new ClientView(mClients);
-        Service1View vSvc1 = new Service1View(mSvc1);
-        Service2View vSvc2 = new Service2View(mSvc2);
-        ServiceTypeView vServiceType = new ServiceTypeView(mServiceTypes);
+        BranchsView vBranches = new BranchsView(mBranches);
+        ClientsView vClients = new ClientsView(mClients);
+        Services1View vSvc1 = new Services1View(mSvc1);
+        Services2View vSvc2 = new Services2View(mSvc2);
+        ServicesTypesView vServiceType = new ServicesTypesView(mServiceTypes);
 
-        new BranchController(mBranches, vBranches);
-        new ClientController(mClients, vClients);
-        new Service1Controller(mSvc1, vSvc1);
-        new Service2Controller(mSvc2, vSvc2);
-        new ServiceTypeController(mServiceTypes, vServiceType);
+        new BranchsController(mBranches, vBranches);
+        new ClientsController(mClients, vClients);
+        new Services1Controller(mSvc1, vSvc1);
+        new Services2Controller(mSvc2, vSvc2);
+        new ServicesTypesController(mServiceTypes, vServiceType);
 
         TableNavigationPane nav = new TableNavigationPane(vBranches, vClients, vSvc1, vSvc2, vServiceType);
 
