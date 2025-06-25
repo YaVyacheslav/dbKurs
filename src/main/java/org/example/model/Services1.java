@@ -1,95 +1,166 @@
+
 package org.example.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import org.example.SingletonResult;
 
-import java.time.LocalDate;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 
-public class Service1Model {
-    private final IntegerProperty serviceId       = new SimpleIntegerProperty();
-    private final IntegerProperty clientId        = new SimpleIntegerProperty();
-    private final IntegerProperty serviceTypeId   = new SimpleIntegerProperty();
-    private final IntegerProperty branchId        = new SimpleIntegerProperty();
-    private final IntegerProperty requestNumber   = new SimpleIntegerProperty();
-    private final ObjectProperty<LocalDate> acceptanceDate = new SimpleObjectProperty<>();
-    private final ObjectProperty<LocalDate> returnDate     = new SimpleObjectProperty<>();
-    private final IntegerProperty complexity      = new SimpleIntegerProperty();
-    private final DoubleProperty  workload        = new SimpleDoubleProperty();
-    private final IntegerProperty urgency         = new SimpleIntegerProperty();
+public class Services1 extends Observable {
+    private final List<Service1> services = new ArrayList<>();
+    private Connection connection;
 
-    public Service1Model(int serviceId,
-                         int clientId,
-                         int serviceTypeId,
-                         int branchId,
-                         int requestNumber,
-                         LocalDate acceptanceDate,
-                         LocalDate returnDate,
-                         int complexity,
-                         double workload,
-                         int urgency) {
-        this.serviceId.set(serviceId);
-        this.clientId.set(clientId);
-        this.serviceTypeId.set(serviceTypeId);
-        this.branchId.set(branchId);
-        this.requestNumber.set(requestNumber);
-        this.acceptanceDate.set(acceptanceDate);
-        this.returnDate.set(returnDate);
-        this.complexity.set(complexity);
-        this.workload.set(workload);
-        this.urgency.set(urgency);
+    public Services1() {}
+
+    public void load(Connection connection) throws SQLException {
+        this.connection = connection;
+        this.reload();
     }
 
-    // serviceId
-    public int getServiceId()                  { return serviceId.get(); }
-    public void setServiceId(int id)           { serviceId.set(id); }
-    public IntegerProperty serviceIdProperty() { return serviceId; }
+    private void reload() throws SQLException {
+        services.clear();
+        String sql = "SELECT service_id, client_id, service_type_id, branch_id, request_number, acceptance_date, return_date, complexity, workload, urgency FROM services1";
 
-    // clientId
-    public int getClientId()                   { return clientId.get(); }
-    public void setClientId(int id)            { clientId.set(id); }
-    public IntegerProperty clientIdProperty()  { return clientId; }
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                services.add(Service1.fromResultSet(rs));
+            }
+        }
+        SingletonResult.getService1Instance().setResult(new ArrayList<>(services));
 
-    // serviceTypeId
-    public int getServiceTypeId()                  { return serviceTypeId.get(); }
-    public void setServiceTypeId(int typeId)       { serviceTypeId.set(typeId); }
-    public IntegerProperty serviceTypeIdProperty() { return serviceTypeId; }
+        setChanged();
+        notifyObservers();
+    }
 
-    // branchId
-    public int getBranchId()                 { return branchId.get(); }
-    public void setBranchId(int id)          { branchId.set(id); }
-    public IntegerProperty branchIdProperty(){ return branchId; }
+    public void addService(int clientId, int serviceTypeId, int branchId, int requestNumber, Date acceptanceDate, Date returnDate, Integer complexity, Double workload, Integer urgency) throws SQLException {
+        String sql = "INSERT INTO services1 (client_id, service_type_id, branch_id, request_number, acceptance_date, return_date, complexity, workload, urgency) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, clientId);
+            ps.setInt(2, serviceTypeId);
+            ps.setInt(3, branchId);
+            ps.setInt(4, requestNumber);
+            ps.setDate(5, acceptanceDate);
+            ps.setDate(6, returnDate);
 
-    // requestNumber
-    public int getRequestNumber()                  { return requestNumber.get(); }
-    public void setRequestNumber(int reqNum)       { requestNumber.set(reqNum); }
-    public IntegerProperty requestNumberProperty() { return requestNumber; }
 
-    // acceptanceDate
-    public LocalDate getAcceptanceDate()                    { return acceptanceDate.get(); }
-    public void setAcceptanceDate(LocalDate date)           { acceptanceDate.set(date); }
-    public ObjectProperty<LocalDate> acceptanceDateProperty(){ return acceptanceDate; }
+            if (complexity != null) {
+                ps.setInt(7, complexity);
+            } else {
+                ps.setNull(7, Types.INTEGER);
+            }
 
-    // returnDate
-    public LocalDate getReturnDate()                    { return returnDate.get(); }
-    public void setReturnDate(LocalDate date)           { returnDate.set(date); }
-    public ObjectProperty<LocalDate> returnDateProperty(){ return returnDate; }
+            if (workload != null) {
+                ps.setDouble(8, workload);
+            } else {
+                ps.setNull(8, Types.DOUBLE);
+            }
 
-    // complexity
-    public int getComplexity()                   { return complexity.get(); }
-    public void setComplexity(int complexity)    { this.complexity.set(complexity); }
-    public IntegerProperty complexityProperty()  { return complexity; }
+            if (urgency != null) {
+                ps.setInt(9, urgency);
+            } else {
+                ps.setNull(9, Types.INTEGER);
+            }
 
-    // workload
-    public double getWorkload()                  { return workload.get(); }
-    public void setWorkload(double workload)     { this.workload.set(workload); }
-    public DoubleProperty workloadProperty()     { return workload; }
+            ps.executeUpdate();
 
-    // urgency
-    public int getUrgency()                  { return urgency.get(); }
-    public void setUrgency(int urgency)      { this.urgency.set(urgency); }
-    public IntegerProperty urgencyProperty(){ return urgency; }
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) {
+                    Service1 newService = new Service1(keys.getInt(1), clientId, serviceTypeId, branchId, requestNumber, acceptanceDate, returnDate, complexity, workload, urgency);
+                    services.add(newService);
+                    setChanged();
+                    notifyObservers();
+                }
+            }
+        }
+        reload();
+    }
+
+    public void removeService(int serviceId) throws SQLException {
+        String sql = "DELETE FROM services1 WHERE service_id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, serviceId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                for (int i = 0; i < services.size(); i++) {
+                    if (services.get(i).getServiceId() == serviceId) {
+                        services.remove(i);
+                        break;
+                    }
+                }
+                setChanged();
+                notifyObservers();
+            }
+        }
+        reload();
+    }
+
+
+    public void updateService(int serviceId, int clientId, int serviceTypeId, int branchId, int requestNumber, Date acceptanceDate, Date returnDate, Integer complexity, Double workload, Integer urgency) throws SQLException {
+        String sql = "UPDATE services1 SET client_id = ?, service_type_id = ?, branch_id = ?, request_number = ?, acceptance_date = ?, return_date = ?, complexity = ?, workload = ?, urgency = ? WHERE service_id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, clientId);
+            ps.setInt(2, serviceTypeId);
+            ps.setInt(3, branchId);
+            ps.setInt(4, requestNumber);
+            ps.setDate(5, acceptanceDate);
+            ps.setDate(6, returnDate);
+
+
+            if (complexity != null) {
+                ps.setInt(7, complexity);
+            } else {
+                ps.setNull(7, Types.INTEGER);
+            }
+
+            if (workload != null) {
+                ps.setDouble(8, workload);
+            } else {
+                ps.setNull(8, Types.DOUBLE);
+            }
+
+            if (urgency != null) {
+                ps.setInt(9, urgency);
+            } else {
+                ps.setNull(9, Types.INTEGER);
+            }
+
+            ps.setInt(10, serviceId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                for (Service1 service : services) {
+                    if (service.getServiceId() == serviceId) {
+                        service.setClientId(clientId);
+                        service.setServiceTypeId(serviceTypeId);
+                        service.setBranchId(branchId);
+                        service.setRequestNumber(requestNumber);
+                        service.setAcceptanceDate(acceptanceDate);
+                        service.setReturnDate(returnDate);
+                        service.setComplexity(complexity);
+                        service.setWorkload(workload);
+                        service.setUrgency(urgency);
+                        break;
+                    }
+                }
+                setChanged();
+                notifyObservers();
+            }
+        }
+        reload();
+    }
+
+    public void refreshTable(TableView<Service1> tableView) {
+        List<Service1> list = (List<Service1>) SingletonResult.getService1Instance().getResult();
+        ObservableList<Service1> items = list == null
+                ? FXCollections.emptyObservableList()
+                : FXCollections.observableArrayList(list);
+        tableView.setItems(items);
+    }
 }
