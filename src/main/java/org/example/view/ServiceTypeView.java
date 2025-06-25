@@ -43,28 +43,23 @@ public class ServiceTypeView {
         tableView.setPrefWidth(600);
         tableView.setPrefHeight(400);
 
-        tableView.setItems(model.getObservableServiceTypes());
+        model.refreshTable(tableView);
 
-        // Создание Label для каждого поля ввода
         Label nameLabel = new Label("Name:");
         Label typeLabel = new Label("Type:");
 
-        // Используем GridPane для четкого расположения меток и полей ввода в 2 колонки
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
 
-        // Добавление меток и полей ввода в GridPane (2 колонки)
         grid.add(nameLabel, 0, 0);
         grid.add(nameField, 1, 0);
         grid.add(typeLabel, 0, 1);
         grid.add(typeField, 1, 1);
 
-        // Размещение кнопок в горизонтальном контейнере
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setSpacing(10);
 
-        // Добавляем все элементы в вертикальный контейнер
         VBox vbox = new VBox(10, tableView, grid, buttonBox);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         root.getChildren().add(vbox);
