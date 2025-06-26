@@ -38,6 +38,13 @@ h2 {
     -fx-max-width: 250px;
 }
 
+.date-picker .button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 10px;
+}
+
 .button:hover {
     -fx-background-color: #45a049;
 }

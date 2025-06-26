@@ -108,10 +108,7 @@ public class UserProfile extends Observable {
                             rs.getObject("discount") == null ? null : rs.getInt("discount")
                     ));
                 }
-
-                System.out.println("Number of orders loaded: " + rowCount);
                 if (rowCount == 0) {
-                    System.out.println("No orders found for client ID: " + clientId);
                 }
             }
         }

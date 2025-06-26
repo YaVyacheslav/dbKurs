@@ -14,7 +14,6 @@ public class BranchsView {
     private final TableView<Branch> tableView;
     private final TextField addressField;
     private final Button addButton, updateButton, deleteButton;
-
     private final Branchs model;
 
     public BranchsView(Branchs model) {
@@ -24,7 +23,6 @@ public class BranchsView {
         this.addButton = new Button("Добавить филиал");
         this.updateButton = new Button("Обновить филиал");
         this.deleteButton = new Button("Удалить филиал");
-
 
         addButton.getStyleClass().add("button");
         updateButton.getStyleClass().add("button");
