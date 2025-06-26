@@ -21,7 +21,6 @@ public class Register {
         try {
             connection.setAutoCommit(false);
 
-
             String sqlClient = "INSERT INTO clients (surname, name, patronymic, phone, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
             int clientId;
             try (PreparedStatement ps = connection.prepareStatement(sqlClient, Statement.RETURN_GENERATED_KEYS)) {
@@ -38,8 +37,6 @@ public class Register {
                     clientId = rs.getInt(1);
                 }
             }
-
-
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();

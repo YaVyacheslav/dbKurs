@@ -17,8 +17,19 @@ public class UserProfileController implements Observer {
     public UserProfileController(UserProfile model, UserProfileView view) throws SQLException {
         this.model = model;
         this.view = view;
-
         model.addObserver(this);
+
+        view.getSaveProfileButton().getStyleClass().add("button");
+        view.getCreateOrderButton().getStyleClass().add("button");
+
+        view.getUsernameField().getStyleClass().add("text-field");
+        view.getPasswordField().getStyleClass().add("text-field");
+        view.getSurnameField().getStyleClass().add("text-field");
+        view.getNameField().getStyleClass().add("text-field");
+        view.getPatronymicField().getStyleClass().add("text-field");
+        view.getPhoneField().getStyleClass().add("text-field");
+
+        view.getTableView().getStyleClass().add("table-view");
 
         model.loadProfile();
 
@@ -44,7 +55,11 @@ public class UserProfileController implements Observer {
             view.setProfile(c);
         }
 
-        view.setOrders(model.getOrders());
+        List<Order> orders = model.getOrders();
+        System.out.println("Setting orders for view: " + orders.size());
+
+
+        view.setOrders(orders);
     }
 
     private void onSaveProfile() {

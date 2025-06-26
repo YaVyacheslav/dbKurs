@@ -1,5 +1,7 @@
 package org.example.view;
 
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
@@ -23,8 +25,10 @@ public class ServicesTypesView {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);
+
         this.nameField = new TextField();
         this.typeField = new TextField();
+
         this.addButton = new Button("Добавить тип услуги");
         this.updateButton = new Button("Обновить тип услуги");
         this.deleteButton = new Button("Удалить тип услуги");
@@ -63,6 +67,13 @@ public class ServicesTypesView {
         VBox vbox = new VBox(10, tableView, grid, buttonBox);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         root.getChildren().add(vbox);
+
+        addButton.getStyleClass().add("button");
+        updateButton.getStyleClass().add("button");
+        deleteButton.getStyleClass().add("button");
+
+        nameField.getStyleClass().add("text-field");
+        typeField.getStyleClass().add("text-field");
     }
 
     public StackPane getView() {

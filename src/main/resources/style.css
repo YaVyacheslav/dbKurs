@@ -1,0 +1,93 @@
+.root {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4 {
+    color: #333;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.stack-pane {
+    -fx-background-color: white;
+    -fx-border-radius: 8px;
+    -fx-margin: 20px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 4);
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 12px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-transition: background-color 0.3s;
+    -fx-min-width: 150px;
+    -fx-max-width: 250px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.text-field, .password-field, .spinner, .combo-box {
+    -fx-padding: 4px 8px;
+    -fx-margin: 8px 0;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-box-sizing: border-box;
+    -fx-pref-width: 250px;
+    -fx-max-width: 250px;
+    -fx-min-width: 150px;
+}
+
+.table-view {
+    -fx-width: 100%;
+    -fx-border-collapse: collapse;
+    -fx-margin-top: 20px;
+}
+
+.table-view, .table-view .table-cell, .table-view .column-header {
+    -fx-border-color: #ddd;
+}
+
+.table-view .table-cell, .table-view .column-header {
+    -fx-padding: 10px;
+    -fx-text-align: left;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f4f4f4;
+}
+
+.grid-pane {
+    -fx-display: grid;
+    -fx-gap: 10px;
+    -fx-grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.vbox {
+    -fx-display: flex;
+    -fx-flex-direction: column;
+    -fx-gap: 10px;
+    -fx-max-width: 500px;
+    -fx-alignment: top-left;
+}
+
+.hbox {
+    -fx-display: flex;
+    -fx-gap: 10px;
+    -fx-justify-content: space-between;
+}

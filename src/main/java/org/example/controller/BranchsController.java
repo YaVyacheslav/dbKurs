@@ -14,6 +14,7 @@ public class BranchsController implements Observer {
         this.model = model;
         this.view = view;
         initializeButtons();
+        initializeTableSelection();
         model.addObserver(this);
     }
 
@@ -58,5 +59,27 @@ public class BranchsController implements Observer {
                 }
             }
         });
+
+        view.getAddButton().getStyleClass().add("button");
+        view.getUpdateButton().getStyleClass().add("button");
+        view.getDeleteButton().getStyleClass().add("button");
+        view.getAddressField().getStyleClass().add("text-field");
+        view.getTableView().getStyleClass().add("table-view");
+    }
+
+    private void initializeTableSelection() {
+
+        view.getTableView().getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                org.example.model.Branch selectedBranch = view.getTableView().getSelectionModel().getSelectedItem();
+                populateFields(selectedBranch);
+            }
+        });
+    }
+
+    private void populateFields(org.example.model.Branch selectedBranch) {
+
+        view.getAddressField().setText(selectedBranch.getAddress());
     }
 }

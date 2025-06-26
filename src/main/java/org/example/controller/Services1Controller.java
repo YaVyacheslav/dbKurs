@@ -20,6 +20,7 @@ public class Services1Controller implements Observer {
         this.view = view;
 
         initializeButtons();
+        initializeTableSelection();
         model.addObserver(this);
     }
 
@@ -29,11 +30,55 @@ public class Services1Controller implements Observer {
     }
 
     private void initializeButtons() {
-
         view.getAddButton().setOnAction(new AddButtonListener());
         view.getUpdateButton().setOnAction(new UpdateButtonListener());
         view.getDeleteButton().setOnAction(new DeleteButtonListener());
+        view.getAddButton().getStyleClass().add("button");
+        view.getUpdateButton().getStyleClass().add("button");
+        view.getDeleteButton().getStyleClass().add("button");
+
+
+        view.getClientIdField().getStyleClass().add("text-field");
+        view.getServiceTypeIdField().getStyleClass().add("text-field");
+        view.getBranchIdField().getStyleClass().add("text-field");
+        view.getRequestNumberField().getStyleClass().add("text-field");
+        view.getAcceptanceDateField().getStyleClass().add("date-picker");
+        view.getReturnDateField().getStyleClass().add("date-picker");
+
+        view.getTableView().getStyleClass().add("table-view");
     }
+
+    private void initializeTableSelection() {
+
+        view.getTableView().getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                Service1 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
+                populateFields(selectedService);
+            }
+        });
+    }
+
+    private void populateFields(Service1 selectedService) {
+
+        view.getClientIdField().setText(String.valueOf(selectedService.getClientId()));
+        view.getServiceTypeIdField().setText(String.valueOf(selectedService.getServiceTypeId()));
+        view.getBranchIdField().setText(String.valueOf(selectedService.getBranchId()));
+        view.getRequestNumberField().setText(String.valueOf(selectedService.getRequestNumber()));
+        view.getAcceptanceDateField().setValue(selectedService.getAcceptanceDate().toLocalDate());
+
+
+        if (selectedService.getReturnDate() != null) {
+            view.getReturnDateField().setValue(selectedService.getReturnDate().toLocalDate());
+        } else {
+            view.getReturnDateField().setValue(null);
+        }
+
+        view.getComplexityField().setText(selectedService.getComplexity() != null ? String.valueOf(selectedService.getComplexity()) : "");
+        view.getWorkloadField().setText(selectedService.getWorkload() != null ? String.valueOf(selectedService.getWorkload()) : "");
+        view.getUrgencyField().setText(selectedService.getUrgency() != null ? String.valueOf(selectedService.getUrgency()) : "");
+    }
+
 
     private class AddButtonListener implements EventHandler<ActionEvent> {
         @Override
@@ -62,8 +107,7 @@ public class Services1Controller implements Observer {
         int branchId = Integer.parseInt(view.getBranchIdField().getText());
         int requestNumber = Integer.parseInt(view.getRequestNumberField().getText());
         Date acceptanceDate = Date.valueOf(view.getAcceptanceDateField().getValue());
-        Date returnDate = Date.valueOf(view.getReturnDateField().getValue());
-
+        Date returnDate = view.getReturnDateField().getValue() != null ? Date.valueOf(view.getReturnDateField().getValue()) : null;
 
         Integer complexity = parseInteger(view.getComplexityField().getText());
         Double workload = parseDouble(view.getWorkloadField().getText());
@@ -85,8 +129,7 @@ public class Services1Controller implements Observer {
             int branchId = Integer.parseInt(view.getBranchIdField().getText());
             int requestNumber = Integer.parseInt(view.getRequestNumberField().getText());
             Date acceptanceDate = Date.valueOf(view.getAcceptanceDateField().getValue());
-            Date returnDate = Date.valueOf(view.getReturnDateField().getValue());
-
+            Date returnDate = view.getReturnDateField().getValue() != null ? Date.valueOf(view.getReturnDateField().getValue()) : null;
 
             Integer complexity = parseInteger(view.getComplexityField().getText());
             Double workload = parseDouble(view.getWorkloadField().getText());
@@ -103,6 +146,7 @@ public class Services1Controller implements Observer {
         }
     }
 
+
     private void deleteService() {
         Service1 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
         if (selectedService != null) {
@@ -116,14 +160,12 @@ public class Services1Controller implements Observer {
         }
     }
 
-
     private Integer parseInteger(String text) {
         if (text == null || text.trim().isEmpty()) {
             return null;
         }
         return Integer.parseInt(text);
     }
-
 
     private Double parseDouble(String text) {
         if (text == null || text.trim().isEmpty()) {

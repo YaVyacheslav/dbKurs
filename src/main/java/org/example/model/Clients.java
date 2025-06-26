@@ -31,8 +31,6 @@ public class Clients extends Observable {
                 clients.add(Client.fromResultSet(rs));
             }
         }
-
-
         SingletonResult.getClientInstance().setResult(new ArrayList<>(clients));
 
         setChanged();

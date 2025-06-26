@@ -19,6 +19,7 @@ public class Services2Controller implements Observer {
         this.view = view;
 
         initializeButtons();
+        initializeTableSelection();
         model.addObserver(this);
     }
 
@@ -28,10 +29,38 @@ public class Services2Controller implements Observer {
     }
 
     private void initializeButtons() {
-
         view.getAddButton().setOnAction(new AddButtonListener());
         view.getUpdateButton().setOnAction(new UpdateButtonListener());
         view.getDeleteButton().setOnAction(new DeleteButtonListener());
+        view.getAddButton().getStyleClass().add("button");
+        view.getUpdateButton().getStyleClass().add("button");
+        view.getDeleteButton().getStyleClass().add("button");
+
+        view.getServiceIdField().getStyleClass().add("text-field");
+        view.getPriceField().getStyleClass().add("text-field");
+        view.getDiscountField().getStyleClass().add("text-field");
+
+        view.getTableView().getStyleClass().add("table-view");
+    }
+
+    private void initializeTableSelection() {
+        view.getTableView().getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                Service2 selectedService = view.getTableView().getSelectionModel().getSelectedItem();
+                populateFields(selectedService);
+            }
+        });
+    }
+
+    private void populateFields(Service2 selectedService) {
+        view.getServiceIdField().setText(String.valueOf(selectedService.getServiceId()));
+        if (selectedService.getPrice() != null) {
+            view.getPriceField().setText(String.valueOf(selectedService.getPrice()));
+        } else {
+            view.getPriceField().clear();
+        }
+        view.getDiscountField().setText(String.valueOf(selectedService.getDiscount()));
     }
 
     private class AddButtonListener implements EventHandler<ActionEvent> {
@@ -98,7 +127,6 @@ public class Services2Controller implements Observer {
             view.showError("Не выбрана услуга для удаления.");
         }
     }
-
 
     private Integer parseInteger(String text) {
         if (text == null || text.trim().isEmpty()) {

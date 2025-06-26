@@ -2,7 +2,6 @@ package org.example.controller;
 
 import org.example.model.*;
 import org.example.view.*;
-
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,8 +14,9 @@ public class LoginController implements Observer {
     public LoginController(Login model, LoginView view) {
         this.model = model;
         this.view = view;
-
         this.model.addObserver(this);
+        view.getLoginButton().getStyleClass().add("button");
+        view.getRegisterButton().getStyleClass().add("button");
 
         view.getLoginButton().setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
             @Override

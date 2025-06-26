@@ -79,7 +79,6 @@ public class Services2 extends Observable {
         reload();
     }
 
-
     public void updateService(int serviceId, Integer price, int discount) throws SQLException {
         String sql = "UPDATE services2 SET price = ?, discount = ? WHERE service_id = ?";
 

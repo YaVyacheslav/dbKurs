@@ -20,7 +20,6 @@ public class Order {
         this.discount = discount;
     }
 
-
     public String getServiceName() {
         return serviceName;
     }

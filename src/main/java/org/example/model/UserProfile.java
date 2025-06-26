@@ -23,7 +23,6 @@ public class UserProfile extends Observable {
         this.clientId = clientId;
     }
 
-
     public void loadProfile() throws SQLException {
         String sql = "SELECT cid, surname, name, patronymic, phone, username, password, role FROM clients WHERE cid = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -64,9 +63,6 @@ public class UserProfile extends Observable {
         notifyObservers();
     }
 
-
-
-
     public void loadBranches() throws SQLException {
         String sql = "SELECT bid, address FROM branches";
         branches.clear();
@@ -92,10 +88,16 @@ public class UserProfile extends Observable {
                 "JOIN branches b ON s1.branch_id = b.bid " +
                 "LEFT JOIN services2 s2 ON s1.service_id = s2.service_id " +
                 "WHERE s1.client_id = ?";
+
+        System.out.println("Executing SQL query to load orders for client ID: " + clientId);
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, clientId);
+
             try (ResultSet rs = ps.executeQuery()) {
+                int rowCount = 0;
                 while (rs.next()) {
+                    rowCount++;
                     Integer price = rs.getObject("price") == null ? null : rs.getInt("price");
                     orders.add(new Order(
                             rs.getString("service_name"),
@@ -106,13 +108,17 @@ public class UserProfile extends Observable {
                             rs.getObject("discount") == null ? null : rs.getInt("discount")
                     ));
                 }
+
+                System.out.println("Number of orders loaded: " + rowCount);
+                if (rowCount == 0) {
+                    System.out.println("No orders found for client ID: " + clientId);
+                }
             }
         }
 
         setChanged();
         notifyObservers();
     }
-
 
     public void updateProfile(String surname, String name, String patronymic, String phone, String username, String password) throws SQLException {
         String sql = "UPDATE clients SET surname=?, name=?, patronymic=?, phone=?, username=?, password=? WHERE cid=?";

@@ -21,7 +21,6 @@ public class Login extends Observable {
 
     public Login() {}
 
-
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -74,15 +73,16 @@ public class Login extends Observable {
     public void showUserProfile(Stage stage) throws SQLException {
         int clientId = getClientId();
 
-
         UserProfile userProfile = new UserProfile();
         userProfile.setConnection(connection);
         userProfile.setClientId(clientId);
         UserProfileView userProfileView = new UserProfileView(userProfile);
         UserProfileController userProfileController = new UserProfileController(userProfile, userProfileView);
+        Scene userProfileScene = new Scene(userProfileView.getView());
+        userProfileScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
         stage.setTitle("Личный кабинет");
-        stage.setScene(new Scene(userProfileView.getView()));
+        stage.setScene(userProfileScene);
         stage.show();
     }
 
@@ -116,8 +116,11 @@ public class Login extends Observable {
 
         TableNavigationPane nav = new TableNavigationPane(vBranches, vClients, vSvc1, vSvc2, vServiceType);
 
+        Scene adminDashboardScene = new Scene(nav);
+        adminDashboardScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+
         stage.setTitle("Admin Dashboard");
-        stage.setScene(new Scene(nav));
+        stage.setScene(adminDashboardScene);
         stage.show();
     }
 

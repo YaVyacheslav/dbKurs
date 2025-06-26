@@ -29,43 +29,21 @@ public class TableNavigationPane extends BorderPane {
         content.getChildren().add(svc1View.getView());
         setCenter(content);
 
-        btnBranches.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent e) {
-                switchTo(branchView.getView());
-            }
-        });
+        btnBranches.setOnAction(e -> switchTo(branchView.getView()));
+        btnClients.setOnAction(e -> switchTo(clientView.getView()));
+        btnServices1.setOnAction(e -> switchTo(svc1View.getView()));
+        btnServices2.setOnAction(e -> switchTo(svc2View.getView()));
+        btnServiceTypes.setOnAction(e -> switchTo(serviceTypeView.getView()));
 
-        btnClients.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent e) {
-                switchTo(clientView.getView());
-            }
-        });
-
-        btnServices1.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent e) {
-                switchTo(svc1View.getView());
-            }
-        });
-
-        btnServices2.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent e) {
-                switchTo(svc2View.getView());
-            }
-        });
-
-        btnServiceTypes.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent e) {
-                switchTo(serviceTypeView.getView());
-            }
-        });
+        btnBranches.getStyleClass().add("button");
+        btnClients.getStyleClass().add("button");
+        btnServices1.getStyleClass().add("button");
+        btnServices2.getStyleClass().add("button");
+        btnServiceTypes.getStyleClass().add("button");
     }
 
     private void switchTo(Node node) {
+
         content.getChildren().setAll(node);
     }
 }

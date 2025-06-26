@@ -54,7 +54,6 @@ public class Service2 {
         return discount;
     }
 
-
     public static Service2 fromResultSet(ResultSet rs) throws SQLException {
         Service2 service = new Service2();
         service.setServiceId(rs.getInt("service_id"));

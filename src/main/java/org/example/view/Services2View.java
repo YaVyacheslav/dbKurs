@@ -1,5 +1,7 @@
 package org.example.view;
 
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
@@ -23,22 +25,24 @@ public class Services2View {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);
+
         this.serviceIdField = new TextField();
         this.priceField = new TextField();
         this.discountField = new TextField();
+
         this.addButton = new Button("Добавить услугу");
         this.updateButton = new Button("Обновить услугу");
         this.deleteButton = new Button("Удалить услугу");
 
         tableView = new TableView<>();
         TableColumn<Service2, Integer> serviceIdColumn = new TableColumn<>("Service ID");
-        serviceIdColumn.setCellValueFactory(new PropertyValueFactory<Service2, Integer>("serviceId"));
+        serviceIdColumn.setCellValueFactory(new PropertyValueFactory<>("serviceId"));
 
         TableColumn<Service2, Integer> priceColumn = new TableColumn<>("Price");
-        priceColumn.setCellValueFactory(new PropertyValueFactory<Service2, Integer>("price"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         TableColumn<Service2, Integer> discountColumn = new TableColumn<>("Discount");
-        discountColumn.setCellValueFactory(new PropertyValueFactory<Service2, Integer>("discount"));
+        discountColumn.setCellValueFactory(new PropertyValueFactory<>("discount"));
 
         tableView.getColumns().addAll(serviceIdColumn, priceColumn, discountColumn);
         tableView.setPrefWidth(600);
@@ -50,11 +54,9 @@ public class Services2View {
         Label priceLabel = new Label("Price:");
         Label discountLabel = new Label("Discount:");
 
-
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-
 
         grid.add(serviceIdLabel, 0, 0);
         grid.add(serviceIdField, 1, 0);
@@ -71,6 +73,15 @@ public class Services2View {
         VBox vbox = new VBox(10, tableView, grid, buttonBox);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         root.getChildren().add(vbox);
+
+
+        addButton.getStyleClass().add("button");
+        updateButton.getStyleClass().add("button");
+        deleteButton.getStyleClass().add("button");
+
+        serviceIdField.getStyleClass().add("text-field");
+        priceField.getStyleClass().add("text-field");
+        discountField.getStyleClass().add("text-field");
     }
 
     public StackPane getView() {

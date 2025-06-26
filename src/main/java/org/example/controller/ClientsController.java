@@ -3,7 +3,6 @@ package org.example.controller;
 import org.example.model.Client;
 import org.example.model.Clients;
 import org.example.view.ClientsView;
-
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +18,7 @@ public class ClientsController implements Observer {
         this.view = view;
 
         initializeButtons();
+        initializeTableSelection();
         model.addObserver(this);
     }
 
@@ -32,6 +32,43 @@ public class ClientsController implements Observer {
         view.getAddButton().setOnAction(new AddButtonListener());
         view.getUpdateButton().setOnAction(new UpdateButtonListener());
         view.getDeleteButton().setOnAction(new DeleteButtonListener());
+
+        view.getAddButton().getStyleClass().add("button");
+        view.getUpdateButton().getStyleClass().add("button");
+        view.getDeleteButton().getStyleClass().add("button");
+
+        view.getSurnameField().getStyleClass().add("text-field");
+        view.getNameField().getStyleClass().add("text-field");
+        view.getPatronymicField().getStyleClass().add("text-field");
+        view.getPhoneField().getStyleClass().add("text-field");
+        view.getUsernameField().getStyleClass().add("text-field");
+        view.getPasswordField().getStyleClass().add("text-field");
+        view.getRoleField().getStyleClass().add("text-field");
+
+        view.getTableView().getStyleClass().add("table-view");
+
+    }
+
+    private void initializeTableSelection() {
+
+        view.getTableView().getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                Client selectedClient = view.getTableView().getSelectionModel().getSelectedItem();
+                populateFields(selectedClient);
+            }
+        });
+    }
+
+    private void populateFields(Client selectedClient) {
+
+        view.getSurnameField().setText(selectedClient.getSurname());
+        view.getNameField().setText(selectedClient.getName());
+        view.getPatronymicField().setText(selectedClient.getPatronymic());
+        view.getPhoneField().setText(selectedClient.getPhone());
+        view.getUsernameField().setText(selectedClient.getUsername());
+        view.getPasswordField().setText(selectedClient.getPassword());
+        view.getRoleField().setText(selectedClient.getRole());
     }
 
     private class AddButtonListener implements EventHandler<ActionEvent> {

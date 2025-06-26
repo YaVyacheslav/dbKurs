@@ -13,6 +13,14 @@ public class RegisterController {
         this.model = model;
         this.view = view;
 
+        view.getRegisterButton().getStyleClass().add("button");
+        view.getSurnameField().getStyleClass().add("text-field");
+        view.getNameField().getStyleClass().add("text-field");
+        view.getPatronymicField().getStyleClass().add("text-field");
+        view.getPhoneField().getStyleClass().add("text-field");
+        view.getUsernameField().getStyleClass().add("text-field");
+        view.getPasswordField().getStyleClass().add("text-field");
+
         view.getRegisterButton().setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent e) {
@@ -35,6 +43,7 @@ public class RegisterController {
                     view.showError("Ошибка при доступе к БД:\n" + ex.getMessage());
                 }
             }
+
         });
     }
 }

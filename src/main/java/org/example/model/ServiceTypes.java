@@ -81,7 +81,6 @@ public class ServiceTypes extends Observable {
         reload();
     }
 
-
     public void updateServiceType(int stid, String name, String type) throws SQLException {
         String sql = "UPDATE service_types SET name = ?, type = ? WHERE stid = ?";
 

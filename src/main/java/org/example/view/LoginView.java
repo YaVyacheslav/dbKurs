@@ -2,11 +2,10 @@ package org.example.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
 import org.example.model.Login;
 
 public class LoginView {
@@ -25,24 +24,23 @@ public class LoginView {
         root.setVgap(10);
         root.setPadding(new Insets(20));
 
-        usernameField   = new TextField();
-        passwordField   = new PasswordField();
-        loginButton     = new Button("Войти");
-        registerButton  = new Button("Регистрация");
+        usernameField = new TextField();
+        passwordField = new PasswordField();
+        loginButton = new Button("Войти");
+        registerButton = new Button("Регистрация");
 
-        root.add(new Label("Логин:"),    0, 0);
-        root.add(usernameField,          1, 0);
-        root.add(new Label("Пароль:"),   0, 1);
-        root.add(passwordField,          1, 1);
+        loginButton.getStyleClass().add("button");
+        registerButton.getStyleClass().add("button");
+        usernameField.getStyleClass().add("text-field");
+        passwordField.getStyleClass().add("text-field");
+
+        root.add(new Label("Логин:"), 0, 0);
+        root.add(usernameField, 1, 0);
+        root.add(new Label("Пароль:"), 0, 1);
+        root.add(passwordField, 1, 1);
 
         HBox buttons = new HBox(10, loginButton, registerButton);
         root.add(buttons, 1, 2);
-
-
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
     }
 
     public Parent getView() {

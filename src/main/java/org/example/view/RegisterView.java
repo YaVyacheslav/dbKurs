@@ -18,10 +18,17 @@ public class RegisterView {
     private final GridPane root = new GridPane();
 
     public RegisterView(Register model) {
-
         root.setHgap(10);
         root.setVgap(10);
         root.setPadding(new Insets(20));
+
+        surnameField.getStyleClass().add("text-field");
+        nameField.getStyleClass().add("text-field");
+        patronymicField.getStyleClass().add("text-field");
+        phoneField.getStyleClass().add("text-field");
+        usernameField.getStyleClass().add("text-field");
+        passwordField.getStyleClass().add("text-field");
+        registerButton.getStyleClass().add("button");
 
         int row = 0;
         root.add(new Label("Фамилия:"),    0, row); root.add(surnameField,    1, row++);
@@ -45,6 +52,13 @@ public class RegisterView {
     public String getUsername()   { return usernameField.getText().trim(); }
     public String getPassword()   { return passwordField.getText().trim(); }
     public Button getRegisterButton() { return registerButton; }
+
+    public TextField getSurnameField() { return surnameField; }
+    public TextField getNameField() { return nameField; }
+    public TextField getPatronymicField() { return patronymicField; }
+    public TextField getPhoneField() { return phoneField; }
+    public TextField getUsernameField() { return usernameField; }
+    public PasswordField getPasswordField() { return passwordField; }
 
     public void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);

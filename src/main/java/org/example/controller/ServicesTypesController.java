@@ -19,6 +19,7 @@ public class ServicesTypesController implements Observer {
         this.view = view;
 
         initializeButtons();
+        initializeTableSelection();
         model.addObserver(this);
     }
 
@@ -28,10 +29,32 @@ public class ServicesTypesController implements Observer {
     }
 
     private void initializeButtons() {
-
         view.getAddButton().setOnAction(new AddButtonListener());
         view.getUpdateButton().setOnAction(new UpdateButtonListener());
         view.getDeleteButton().setOnAction(new DeleteButtonListener());
+        view.getAddButton().getStyleClass().add("button");
+        view.getUpdateButton().getStyleClass().add("button");
+        view.getDeleteButton().getStyleClass().add("button");
+
+        view.getNameField().getStyleClass().add("text-field");
+        view.getTypeField().getStyleClass().add("text-field");
+
+        view.getTableView().getStyleClass().add("table-view");
+    }
+
+    private void initializeTableSelection() {
+        view.getTableView().getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+
+                ServiceType selectedServiceType = view.getTableView().getSelectionModel().getSelectedItem();
+                populateFields(selectedServiceType);
+            }
+        });
+    }
+
+    private void populateFields(ServiceType selectedServiceType) {
+        view.getNameField().setText(selectedServiceType.getName());
+        view.getTypeField().setText(selectedServiceType.getType());
     }
 
     private class AddButtonListener implements EventHandler<ActionEvent> {

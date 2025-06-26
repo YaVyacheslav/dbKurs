@@ -1,5 +1,7 @@
 package org.example.view;
 
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +28,7 @@ public class Services1View {
         this.model = model;
         this.root = new StackPane();
         this.canvas = new Canvas(600, 400);
+
         this.clientIdField = new TextField();
         this.serviceTypeIdField = new TextField();
         this.branchIdField = new TextField();
@@ -35,40 +38,41 @@ public class Services1View {
         this.urgencyField = new TextField();
         this.acceptanceDateField = new DatePicker();
         this.returnDateField = new DatePicker();
+
         this.addButton = new Button("Добавить услугу");
         this.updateButton = new Button("Обновить услугу");
         this.deleteButton = new Button("Удалить услугу");
 
         tableView = new TableView<>();
         TableColumn<Service1, Integer> serviceIdColumn = new TableColumn<>("Service ID");
-        serviceIdColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("serviceId"));
+        serviceIdColumn.setCellValueFactory(new PropertyValueFactory<>("serviceId"));
 
         TableColumn<Service1, Integer> clientIdColumn = new TableColumn<>("Client ID");
-        clientIdColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("clientId"));
+        clientIdColumn.setCellValueFactory(new PropertyValueFactory<>("clientId"));
 
         TableColumn<Service1, Integer> serviceTypeIdColumn = new TableColumn<>("Service Type ID");
-        serviceTypeIdColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("serviceTypeId"));
+        serviceTypeIdColumn.setCellValueFactory(new PropertyValueFactory<>("serviceTypeId"));
 
         TableColumn<Service1, Integer> branchIdColumn = new TableColumn<>("Branch ID");
-        branchIdColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("branchId"));
+        branchIdColumn.setCellValueFactory(new PropertyValueFactory<>("branchId"));
 
         TableColumn<Service1, Integer> requestNumberColumn = new TableColumn<>("Request Number");
-        requestNumberColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("requestNumber"));
+        requestNumberColumn.setCellValueFactory(new PropertyValueFactory<>("requestNumber"));
 
         TableColumn<Service1, Date> acceptanceDateColumn = new TableColumn<>("Acceptance Date");
-        acceptanceDateColumn.setCellValueFactory(new PropertyValueFactory<Service1, Date>("acceptanceDate"));
+        acceptanceDateColumn.setCellValueFactory(new PropertyValueFactory<>("acceptanceDate"));
 
         TableColumn<Service1, Date> returnDateColumn = new TableColumn<>("Return Date");
-        returnDateColumn.setCellValueFactory(new PropertyValueFactory<Service1, Date>("returnDate"));
+        returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
 
         TableColumn<Service1, Integer> complexityColumn = new TableColumn<>("Complexity");
-        complexityColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("complexity"));
+        complexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
 
         TableColumn<Service1, Double> workloadColumn = new TableColumn<>("Workload");
-        workloadColumn.setCellValueFactory(new PropertyValueFactory<Service1, Double>("workload"));
+        workloadColumn.setCellValueFactory(new PropertyValueFactory<>("workload"));
 
         TableColumn<Service1, Integer> urgencyColumn = new TableColumn<>("Urgency");
-        urgencyColumn.setCellValueFactory(new PropertyValueFactory<Service1, Integer>("urgency"));
+        urgencyColumn.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
         tableView.getColumns().addAll(serviceIdColumn, clientIdColumn, serviceTypeIdColumn, branchIdColumn, requestNumberColumn, acceptanceDateColumn, returnDateColumn, complexityColumn, workloadColumn, urgencyColumn);
         tableView.setPrefWidth(600);
@@ -113,14 +117,26 @@ public class Services1View {
         grid.add(returnDateLabel, 0, 4);
         grid.add(returnDateField, 1, 4);
 
-
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setSpacing(10);
-
 
         VBox vbox = new VBox(10, tableView, grid, buttonBox);
         VBox.setVgrow(tableView, Priority.ALWAYS);
         root.getChildren().add(vbox);
+
+        addButton.getStyleClass().add("button");
+        updateButton.getStyleClass().add("button");
+        deleteButton.getStyleClass().add("button");
+
+        clientIdField.getStyleClass().add("text-field");
+        serviceTypeIdField.getStyleClass().add("text-field");
+        branchIdField.getStyleClass().add("text-field");
+        requestNumberField.getStyleClass().add("text-field");
+        complexityField.getStyleClass().add("text-field");
+        workloadField.getStyleClass().add("text-field");
+        urgencyField.getStyleClass().add("text-field");
+        acceptanceDateField.getStyleClass().add("date-picker");
+        returnDateField.getStyleClass().add("date-picker");
     }
 
     public StackPane getView() {

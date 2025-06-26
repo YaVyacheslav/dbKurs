@@ -10,7 +10,7 @@ import org.example.model.Branch;
 import org.example.model.Branchs;
 
 public class BranchsView {
-    private final StackPane root;
+    private final VBox root;
     private final TableView<Branch> tableView;
     private final TextField addressField;
     private final Button addButton, updateButton, deleteButton;
@@ -19,11 +19,17 @@ public class BranchsView {
 
     public BranchsView(Branchs model) {
         this.model = model;
-        this.root = new StackPane();
+        this.root = new VBox(10);
         this.addressField = new TextField();
         this.addButton = new Button("Добавить филиал");
         this.updateButton = new Button("Обновить филиал");
         this.deleteButton = new Button("Удалить филиал");
+
+
+        addButton.getStyleClass().add("button");
+        updateButton.getStyleClass().add("button");
+        deleteButton.getStyleClass().add("button");
+        addressField.getStyleClass().add("text-field");
 
         tableView = new TableView<>();
         TableColumn<Branch, Integer> idCol = new TableColumn<>("ID");
@@ -35,17 +41,18 @@ public class BranchsView {
         model.refreshTable(tableView);
 
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
-        VBox vbox = new VBox(10,
-                tableView,
-                new Label("Адрес филиала:"),
-                addressField,
-                buttonBox
-        );
+        buttonBox.setSpacing(10);
+
+        VBox vbox = new VBox(10, tableView, new Label("Адрес филиала:"), addressField, buttonBox);
         VBox.setVgrow(tableView, Priority.ALWAYS);
+
         root.getChildren().add(vbox);
     }
 
-    public StackPane getView() { return root; }
+    public VBox getView() {
+        return root;
+    }
+
     public Button getAddButton() { return addButton; }
     public Button getUpdateButton() { return updateButton; }
     public Button getDeleteButton() { return deleteButton; }

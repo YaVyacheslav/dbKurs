@@ -1,19 +1,17 @@
 package org.example.view;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.model.Client;
 import org.example.model.Clients;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClientsView {
-    private final StackPane root;
-    private final Canvas canvas;
+    private final VBox root;
     private final Clients model;
     private Button addButton, updateButton, deleteButton;
     private TextField surnameField, nameField, patronymicField, phoneField, usernameField, passwordField, roleField;
@@ -21,8 +19,7 @@ public class ClientsView {
 
     public ClientsView(Clients model) {
         this.model = model;
-        this.root = new StackPane();
-        this.canvas = new Canvas(600, 400);
+        this.root = new VBox(10);
         this.surnameField = new TextField();
         this.nameField = new TextField();
         this.patronymicField = new TextField();
@@ -34,6 +31,17 @@ public class ClientsView {
         this.updateButton = new Button("Обновить клиента");
         this.deleteButton = new Button("Удалить клиента");
 
+
+        addButton.getStyleClass().add("button");
+        updateButton.getStyleClass().add("button");
+        deleteButton.getStyleClass().add("button");
+        surnameField.getStyleClass().add("text-field");
+        nameField.getStyleClass().add("text-field");
+        patronymicField.getStyleClass().add("text-field");
+        phoneField.getStyleClass().add("text-field");
+        usernameField.getStyleClass().add("text-field");
+        passwordField.getStyleClass().add("text-field");
+        roleField.getStyleClass().add("text-field");
 
         tableView = new TableView<>();
         TableColumn<Client, Integer> idColumn = new TableColumn<>("ID");
@@ -78,7 +86,6 @@ public class ClientsView {
         grid.setHgap(10);
         grid.setVgap(10);
 
-
         grid.add(surnameLabel, 0, 0);
         grid.add(surnameField, 1, 0);
         grid.add(nameLabel, 2, 0);
@@ -94,19 +101,28 @@ public class ClientsView {
         grid.add(roleLabel, 0, 3);
         grid.add(roleField, 1, 3);
 
-
         HBox buttonBox = new HBox(10, addButton, updateButton, deleteButton);
         buttonBox.setSpacing(10);
 
-
-        VBox vbox = new VBox(10, tableView, grid, buttonBox);
-        VBox.setVgrow(tableView, Priority.ALWAYS);
-        root.getChildren().add(vbox);
+        root.getChildren().addAll(tableView, grid, buttonBox);
     }
 
-    public StackPane getView() {
+    public VBox getView() {
         return root;
     }
+
+    public Button getAddButton() { return addButton; }
+    public Button getUpdateButton() { return updateButton; }
+    public Button getDeleteButton() { return deleteButton; }
+    public TableView<Client> getTableView() { return tableView; }
+
+    public TextField getSurnameField() { return surnameField; }
+    public TextField getNameField() { return nameField; }
+    public TextField getPatronymicField() { return patronymicField; }
+    public TextField getPhoneField() { return phoneField; }
+    public TextField getUsernameField() { return usernameField; }
+    public TextField getPasswordField() { return passwordField; }
+    public TextField getRoleField() { return roleField; }
 
     public void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -124,49 +140,5 @@ public class ClientsView {
         usernameField.clear();
         passwordField.clear();
         roleField.clear();
-    }
-
-    public Button getAddButton() {
-        return addButton;
-    }
-
-    public Button getUpdateButton() {
-        return updateButton;
-    }
-
-    public Button getDeleteButton() {
-        return deleteButton;
-    }
-
-    public TableView<Client> getTableView() {
-        return tableView;
-    }
-
-    public TextField getSurnameField() {
-        return surnameField;
-    }
-
-    public TextField getNameField() {
-        return nameField;
-    }
-
-    public TextField getPatronymicField() {
-        return patronymicField;
-    }
-
-    public TextField getPhoneField() {
-        return phoneField;
-    }
-
-    public TextField getUsernameField() {
-        return usernameField;
-    }
-
-    public TextField getPasswordField() {
-        return passwordField;
-    }
-
-    public TextField getRoleField() {
-        return roleField;
     }
 }
