@@ -56,9 +56,6 @@ public class UserProfileController implements Observer {
         }
 
         List<Order> orders = model.getOrders();
-        System.out.println("Setting orders for view: " + orders.size());
-
-
         view.setOrders(orders);
     }
 

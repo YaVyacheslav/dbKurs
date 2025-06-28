@@ -59,6 +59,7 @@ public class UserProfileView {
         createOrderButton.getStyleClass().add("button");
 
         setupOrderTableColumns();
+        ordersTable.setPlaceholder(new Label("Нет заказов"));
     }
 
     private void setupOrderTableColumns() {

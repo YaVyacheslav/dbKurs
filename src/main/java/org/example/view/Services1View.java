@@ -44,34 +44,34 @@ public class Services1View {
         this.deleteButton = new Button("Удалить услугу");
 
         tableView = new TableView<>();
-        TableColumn<Service1, Integer> serviceIdColumn = new TableColumn<>("Service ID");
+        TableColumn<Service1, Integer> serviceIdColumn = new TableColumn<>("ID Услуги");
         serviceIdColumn.setCellValueFactory(new PropertyValueFactory<>("serviceId"));
 
-        TableColumn<Service1, Integer> clientIdColumn = new TableColumn<>("Client ID");
+        TableColumn<Service1, Integer> clientIdColumn = new TableColumn<>("ID Клиента");
         clientIdColumn.setCellValueFactory(new PropertyValueFactory<>("clientId"));
 
-        TableColumn<Service1, Integer> serviceTypeIdColumn = new TableColumn<>("Service Type ID");
+        TableColumn<Service1, Integer> serviceTypeIdColumn = new TableColumn<>("ID Вида услуги");
         serviceTypeIdColumn.setCellValueFactory(new PropertyValueFactory<>("serviceTypeId"));
 
-        TableColumn<Service1, Integer> branchIdColumn = new TableColumn<>("Branch ID");
+        TableColumn<Service1, Integer> branchIdColumn = new TableColumn<>("ID Филиала");
         branchIdColumn.setCellValueFactory(new PropertyValueFactory<>("branchId"));
 
-        TableColumn<Service1, Integer> requestNumberColumn = new TableColumn<>("Request Number");
+        TableColumn<Service1, Integer> requestNumberColumn = new TableColumn<>("Номер обращения");
         requestNumberColumn.setCellValueFactory(new PropertyValueFactory<>("requestNumber"));
 
-        TableColumn<Service1, Date> acceptanceDateColumn = new TableColumn<>("Acceptance Date");
+        TableColumn<Service1, Date> acceptanceDateColumn = new TableColumn<>("Дата приёма");
         acceptanceDateColumn.setCellValueFactory(new PropertyValueFactory<>("acceptanceDate"));
 
-        TableColumn<Service1, Date> returnDateColumn = new TableColumn<>("Return Date");
+        TableColumn<Service1, Date> returnDateColumn = new TableColumn<>("Дата возврата");
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
 
-        TableColumn<Service1, Integer> complexityColumn = new TableColumn<>("Complexity");
+        TableColumn<Service1, Integer> complexityColumn = new TableColumn<>("Сложность");
         complexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
 
-        TableColumn<Service1, Double> workloadColumn = new TableColumn<>("Workload");
+        TableColumn<Service1, Double> workloadColumn = new TableColumn<>("Объём работ");
         workloadColumn.setCellValueFactory(new PropertyValueFactory<>("workload"));
 
-        TableColumn<Service1, Integer> urgencyColumn = new TableColumn<>("Urgency");
+        TableColumn<Service1, Integer> urgencyColumn = new TableColumn<>("Срочность");
         urgencyColumn.setCellValueFactory(new PropertyValueFactory<>("urgency"));
 
         tableView.getColumns().addAll(serviceIdColumn, clientIdColumn, serviceTypeIdColumn, branchIdColumn, requestNumberColumn, acceptanceDateColumn, returnDateColumn, complexityColumn, workloadColumn, urgencyColumn);
@@ -80,15 +80,15 @@ public class Services1View {
 
         model.refreshTable(tableView);
 
-        Label clientIdLabel = new Label("Client ID:");
-        Label serviceTypeIdLabel = new Label("Service Type ID:");
-        Label branchIdLabel = new Label("Branch ID:");
-        Label requestNumberLabel = new Label("Request Number:");
-        Label complexityLabel = new Label("Complexity:");
-        Label workloadLabel = new Label("Workload:");
-        Label urgencyLabel = new Label("Urgency:");
-        Label acceptanceDateLabel = new Label("Acceptance Date:");
-        Label returnDateLabel = new Label("Return Date:");
+        Label clientIdLabel = new Label("ID Клиента:");
+        Label serviceTypeIdLabel = new Label("ID Вида услуги:");
+        Label branchIdLabel = new Label("ID Филиала:");
+        Label requestNumberLabel = new Label("Номер обращения:");
+        Label complexityLabel = new Label("Сложность:");
+        Label workloadLabel = new Label("Объём работ:");
+        Label urgencyLabel = new Label("Срочность:");
+        Label acceptanceDateLabel = new Label("Дата приёма:");
+        Label returnDateLabel = new Label("Дата возврата:");
 
         GridPane grid = new GridPane();
         grid.setHgap(10);

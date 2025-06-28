@@ -35,13 +35,13 @@ public class Services2View {
         this.deleteButton = new Button("Удалить услугу");
 
         tableView = new TableView<>();
-        TableColumn<Service2, Integer> serviceIdColumn = new TableColumn<>("Service ID");
+        TableColumn<Service2, Integer> serviceIdColumn = new TableColumn<>("ID Услуги");
         serviceIdColumn.setCellValueFactory(new PropertyValueFactory<>("serviceId"));
 
-        TableColumn<Service2, Integer> priceColumn = new TableColumn<>("Price");
+        TableColumn<Service2, Integer> priceColumn = new TableColumn<>("Стоимость");
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        TableColumn<Service2, Integer> discountColumn = new TableColumn<>("Discount");
+        TableColumn<Service2, Integer> discountColumn = new TableColumn<>("Скидка");
         discountColumn.setCellValueFactory(new PropertyValueFactory<>("discount"));
 
         tableView.getColumns().addAll(serviceIdColumn, priceColumn, discountColumn);
@@ -50,9 +50,9 @@ public class Services2View {
 
         model.refreshTable(tableView);
 
-        Label serviceIdLabel = new Label("Service ID:");
-        Label priceLabel = new Label("Price:");
-        Label discountLabel = new Label("Discount:");
+        Label serviceIdLabel = new Label("ID Услуги:");
+        Label priceLabel = new Label("Стоимость:");
+        Label discountLabel = new Label("Скидка:");
 
         GridPane grid = new GridPane();
         grid.setHgap(10);

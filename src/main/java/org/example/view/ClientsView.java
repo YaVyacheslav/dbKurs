@@ -47,25 +47,25 @@ public class ClientsView {
         TableColumn<Client, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("cid"));
 
-        TableColumn<Client, String> surnameColumn = new TableColumn<>("Surname");
+        TableColumn<Client, String> surnameColumn = new TableColumn<>("Фамилия");
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
 
-        TableColumn<Client, String> nameColumn = new TableColumn<>("Name");
+        TableColumn<Client, String> nameColumn = new TableColumn<>("Имя");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Client, String> patronymicColumn = new TableColumn<>("Patronymic");
+        TableColumn<Client, String> patronymicColumn = new TableColumn<>("Отчество");
         patronymicColumn.setCellValueFactory(new PropertyValueFactory<>("patronymic"));
 
-        TableColumn<Client, String> phoneColumn = new TableColumn<>("Phone");
+        TableColumn<Client, String> phoneColumn = new TableColumn<>("Телефон");
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        TableColumn<Client, String> usernameColumn = new TableColumn<>("Username");
+        TableColumn<Client, String> usernameColumn = new TableColumn<>("Логин");
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 
-        TableColumn<Client, String> passwordColumn = new TableColumn<>("Password");
+        TableColumn<Client, String> passwordColumn = new TableColumn<>("Пароль");
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
 
-        TableColumn<Client, String> roleColumn = new TableColumn<>("Role");
+        TableColumn<Client, String> roleColumn = new TableColumn<>("Роль");
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
         tableView.getColumns().addAll(idColumn, surnameColumn, nameColumn, patronymicColumn, phoneColumn, usernameColumn, passwordColumn, roleColumn);
@@ -74,13 +74,13 @@ public class ClientsView {
 
         model.refreshTable(tableView);
 
-        Label surnameLabel = new Label("Surname:");
-        Label nameLabel = new Label("Name:");
-        Label patronymicLabel = new Label("Patronymic:");
-        Label phoneLabel = new Label("Phone:");
-        Label usernameLabel = new Label("Username:");
-        Label passwordLabel = new Label("Password:");
-        Label roleLabel = new Label("Role:");
+        Label surnameLabel = new Label("Фамилия:");
+        Label nameLabel = new Label("Имя:");
+        Label patronymicLabel = new Label("Отчество:");
+        Label phoneLabel = new Label("Телефон:");
+        Label usernameLabel = new Label("Логин:");
+        Label passwordLabel = new Label("Пароль:");
+        Label roleLabel = new Label("Роль:");
 
         GridPane grid = new GridPane();
         grid.setHgap(10);

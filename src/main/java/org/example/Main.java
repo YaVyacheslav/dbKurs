@@ -42,7 +42,7 @@ public class Main extends Application {
 
         loginScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Вход");
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }

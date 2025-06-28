@@ -37,10 +37,10 @@ public class ServicesTypesView {
         TableColumn<ServiceType, Integer> stidColumn = new TableColumn<>("ID");
         stidColumn.setCellValueFactory(new PropertyValueFactory<ServiceType, Integer>("stid"));
 
-        TableColumn<ServiceType, String> nameColumn = new TableColumn<>("Name");
+        TableColumn<ServiceType, String> nameColumn = new TableColumn<>("Название");
         nameColumn.setCellValueFactory(new PropertyValueFactory<ServiceType, String>("name"));
 
-        TableColumn<ServiceType, String> typeColumn = new TableColumn<>("Type");
+        TableColumn<ServiceType, String> typeColumn = new TableColumn<>("Тип");
         typeColumn.setCellValueFactory(new PropertyValueFactory<ServiceType, String>("type"));
 
         tableView.getColumns().addAll(stidColumn, nameColumn, typeColumn);
@@ -49,8 +49,8 @@ public class ServicesTypesView {
 
         model.refreshTable(tableView);
 
-        Label nameLabel = new Label("Name:");
-        Label typeLabel = new Label("Type:");
+        Label nameLabel = new Label("Название:");
+        Label typeLabel = new Label("Тип:");
 
         GridPane grid = new GridPane();
         grid.setHgap(10);

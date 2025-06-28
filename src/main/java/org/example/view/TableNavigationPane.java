@@ -8,11 +8,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 public class TableNavigationPane extends BorderPane {
-    private final Button btnBranches  = new Button("Branches");
-    private final Button btnClients   = new Button("Clients");
-    private final Button btnServices1 = new Button("Services1");
-    private final Button btnServices2 = new Button("Services2");
-    private final Button btnServiceTypes = new Button("Service Types");
+    private final Button btnBranches  = new Button("Филиалы");
+    private final Button btnClients   = new Button("Клиенты");
+    private final Button btnServices1 = new Button("Услуги1");
+    private final Button btnServices2 = new Button("Услуги2");
+    private final Button btnServiceTypes = new Button("Виды услуг");
 
     private final StackPane content = new StackPane();
 

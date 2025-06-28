@@ -32,7 +32,7 @@ public class BranchsView {
         tableView = new TableView<>();
         TableColumn<Branch, Integer> idCol = new TableColumn<>("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("bid"));
-        TableColumn<Branch, String> addrCol = new TableColumn<>("Address");
+        TableColumn<Branch, String> addrCol = new TableColumn<>("Адрес");
         addrCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         tableView.getColumns().addAll(idCol, addrCol);
 

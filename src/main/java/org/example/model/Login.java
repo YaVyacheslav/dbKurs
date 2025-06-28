@@ -61,12 +61,15 @@ public class Login extends Observable {
         Register reg = new Register();
         reg.setConnection(connection);
         RegisterView regView = new RegisterView(reg);
-        RegisterController regController = new RegisterController(reg, regView);
+        new RegisterController(reg, regView);
+
+        Scene regScene = new Scene(regView.getView(), 365, 310);
+        regScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
         Stage regStage = new Stage();
         regStage.setTitle("Регистрация");
-        regStage.setScene(new Scene(regView.getView()));
         regStage.initOwner(getPrimaryStage());
+        regStage.setScene(regScene);
         regStage.show();
     }
 
@@ -119,7 +122,7 @@ public class Login extends Observable {
         Scene adminDashboardScene = new Scene(nav);
         adminDashboardScene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
-        stage.setTitle("Admin Dashboard");
+        stage.setTitle("Админ-панель");
         stage.setScene(adminDashboardScene);
         stage.show();
     }
